@@ -1,0 +1,100 @@
+int main() {
+    int radky, sloupce;
+
+    printf("Zadejte pocet radku a sloupcu pro matice(maximalni pocet radku a sloupcu je 5):  ");
+    scanf("%d %d", &radky, &sloupce);
+    
+    if(radky, sloupce > 5) {
+    	printf("nemozne provest operaci");
+	}
+	else {
+	
+
+    float matice1[5][5], matice2[5][5], vysledek[5][5], transponovanaMatice1[5][5], transponovanaMatice2[5][5];
+    float skalarniCislo;
+
+    printf("Zadejte prvni matici:\n");
+    vytvorMatici(matice1, radky, sloupce);
+
+    printf("Zadejte druhou matici:\n");
+    vytvorMatici(matice2, radky, sloupce);
+
+    
+    //FILE *soubor;
+    //soubor = fopen("....", "w");  na misto .... vyplnit cestu k souboru v pocitaci
+
+    // if (soubor == NULL) {
+    //    printf("Chyba při otevírání souboru.\n");
+    //    return 1;
+    //}
+
+    printf("\nVyberte operaci:\n");
+    printf("1. Scitani matic\n");
+    printf("2. Odcitani matic\n");
+    printf("3. Nasobeni matic\n");
+    printf("4. Nasobeni obou matic stejnym skalarnim cislem\n");
+    printf("5. Vypocet determinantu obou matic\n");
+    printf("6. Vypocet transponovane matice obou matic\n");
+
+    int volba;
+    scanf("%d", &volba);
+
+    switch (volba) {
+        case 1:
+            sectiMatice(matice1, matice2, vysledek, radky, sloupce);
+            printf("Vysledek scitani matic:\n");
+            vypisMatici(vysledek, radky, sloupce);
+          //  vypisMaticiDoSouboru(soubor, vysledek, radky, sloupce);
+            break;
+        case 2:
+            odectiMatice(matice1, matice2, vysledek, radky, sloupce);
+            printf("Vysledek odcitani matic:\n");
+            vypisMatici(vysledek, radky, sloupce);
+          //  vypisMaticiDoSouboru(soubor, vysledek, radky, sloupce);
+            break;
+        case 3:
+            if (sloupce != radky) {
+                printf("Nelze nasobit matice, protoze pocet sloupcu prvni matice neni roven poctu radku druhe matice.\n");
+            } else {
+                vynasobMatice(matice1, matice2, vysledek, radky, sloupce, sloupce);
+                printf("Vysledek nasobeni matic:\n");
+                vypisMatici(vysledek, radky, sloupce);
+            //    vypisMaticiDoSouboru(soubor, vysledek, radky, sloupce);
+            }
+            break;
+        case 4:
+            printf("Zadejte skalarni cislo pro nasobeni obou matic: ");
+            scanf("%f", &skalarniCislo);
+            vynasobSkalarniCislo(matice1, radky, sloupce, skalarniCislo);
+            vynasobSkalarniCislo(matice2, radky, sloupce, skalarniCislo);
+            printf("Vysledne matice po nasobeni skalarnim cislem:\n");
+            printf("Matice 1:\n");
+            vypisMatici(matice1, radky, sloupce);
+            printf("Matice 2:\n");
+            vypisMatici(matice2, radky, sloupce);
+          //  vypisMaticiDoSouboru(soubor, matice1, radky, sloupce);
+          //  vypisMaticiDoSouboru(soubor, matice2, radky, sloupce);
+            break;
+        case 5:
+            printf("Determinant prvni matice: %.2f\n", determinantMatice(matice1, radky));
+            printf("Determinant druhe matice: %.2f\n", determinantMatice(matice2, radky));
+            break;
+        case 6:
+            transponujMatici(matice1, transponovanaMatice1, radky, sloupce);
+            transponujMatici(matice2, transponovanaMatice2, radky, sloupce);
+            printf("Transponovana matice 1:\n");
+            vypisMatici(transponovanaMatice1, sloupce, radky);
+            printf("Transponovana matice 2:\n");
+            vypisMatici(transponovanaMatice2, sloupce, radky);
+          //  vypisMaticiDoSouboru(soubor, transponovanaMatice1, sloupce, radky);
+          //  vypisMaticiDoSouboru(soubor, transponovanaMatice2, sloupce, radky);
+            break;
+        default:
+            printf("Neplatna volba operace.\n");
+    }
+
+   // fclose(soubor);
+}
+
+    return 0;
+}
